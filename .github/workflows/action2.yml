@@ -1,0 +1,12 @@
+name: Workflow2
+on: push
+jobs:
+  jobsName2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Install dependecies
+        run: npm ci
+      - name: Run applications
+        run: npm run dev
