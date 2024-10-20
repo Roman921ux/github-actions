@@ -1,0 +1,14 @@
+name: Workflow1
+# имя
+on: workflow_dispatch
+# действие, то на что будет срабатывать action
+jobs:
+  jobName1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello into console
+        run: echo Hello
+      - name: Print few lines
+        run: |
+          echo line first
+          echo line second
