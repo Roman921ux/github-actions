@@ -1,20 +1,34 @@
 name: Deploy React App
 on: push
 jobs:
-  jobLint:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Get code from repository
+      - name: Get repositoru code
         uses: actions/checkout@v4
+      - name: Install dependecies
+        run: npm ci
+      - name: Test application
+        run: npm run test
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repositoru code
+        uses: actions/checkout@v4
+      - name: Cache deps
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependecies
         run: npm ci
       - name: Lint application
         run: npm run lint
-  jobDeploy:
+  build:
     runs-on: ubuntu-latest
-    needs: jobLint
+    needs: [lint, test]
     steps:
-      - name: Get code from repository
+      - name: Get repositoru code
         uses: actions/checkout@v4
       - name: Install dependecies
         run: npm ci
